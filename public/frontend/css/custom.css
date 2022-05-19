@@ -5,3 +5,7 @@ a.btn.btn-primary.btn-sm.float-end {
 p.text-sm.text-gray-700.leading-5 {
     margin-top: 10px;
 }
+
+.carousel-indicators {
+    bottom: -60px;
+}
