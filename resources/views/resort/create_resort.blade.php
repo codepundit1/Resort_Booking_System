@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h3>
-                            User List
+                           Add Resort
                             <a href="{{ url('view-resort') }}" class="btn btn-primary btn-sm float-end">Back</a>
                         </h3>
                     </div>
