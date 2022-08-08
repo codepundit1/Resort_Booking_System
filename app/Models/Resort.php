@@ -9,7 +9,6 @@ class Resort extends Model
 {
     use HasFactory;
 
-    protected $table = 'resorts';
     protected $fillable = [
         'name',
         'image',
@@ -17,4 +16,9 @@ class Resort extends Model
         'location',
         'description',
     ];
+
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
 }

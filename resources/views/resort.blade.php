@@ -17,12 +17,12 @@
                         </div>
                         <div class="card-body">
                             <h3 class="card-title">{{ $resort->name }}</h3>
-                            <p class="text-muted">Amount of Taka Per Day {{ $resort->price }}</p>
+                            <p class="text-muted">Per Day ৳{{ $resort->price }} Taka</p>
                             <p class="card-text">
                                 {{ $resort->description }}
                             </p>
 
-                            <a class="btn btn-primary btn-sm" href="{{ url('booking') }}"> Book Now</a>
+                            <a class="btn btn-primary btn-sm" href="{{ url('create_booking') }}"> Book Now</a>
                         </div>
                     </div>
                 </div>

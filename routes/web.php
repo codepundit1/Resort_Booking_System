@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\ResortController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -16,10 +17,9 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
+//homepage resort
+Route::get('/', HomepageController::class);
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes();
 
@@ -38,22 +38,20 @@ Route::post('edit-user', [UserController::class, 'update']);
 
 
 //Resort
-Route::get('view-resort', [ResortController::class, 'view']);
+Route::get('view-resort', [ResortController::class, 'index']);
 Route::get('add-resort', [ResortController::class, 'create']);
 Route::post('store-resort', [ResortController::class, 'store']);
-Route::get('delete-resort/{id}', [ResortController::class, 'delete']);
-Route::get('edit-resort/{id}', [ResortController::class, 'showData']);
+Route::get('delete-resort/{id}', [ResortController::class, 'destroy']);
+Route::get('edit-resort/{id}', [ResortController::class, 'show']);
 Route::post('edit-resort', [ResortController::class, 'update']);
-//homepage resort
-Route::get('resort', [ResortController::class, 'homepage']);
+
 
 
 
 //booking
-Route::get('booking', function () {
+Route::get('create_booking', function () {
     return view('booking');
 });
 Route::get('view-booking', [BookingController::class, 'view']);
-Route::post('add-booking', [BookingController::class, 'add']);
-
+Route::post('resorts/{$resort->id}/add-booking', [BookingController::class, 'add'])->name('add_booking');
 

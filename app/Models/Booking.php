@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Booking extends Model
 {
     use HasFactory;
-    protected $table = 'booking';
+
     protected $fillable = [
         'name',
         'email',
@@ -16,4 +16,9 @@ class Booking extends Model
         'checkin',
         'checkout',
     ];
+
+    public function resort()
+    {
+        return $this->belongsTo(Resort::class, 'foreign_key', 'local_key');
+    }
 }

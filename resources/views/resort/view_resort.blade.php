@@ -59,7 +59,7 @@
                         @endforeach
                     </tbody>
                 </table>
-                <span>
+                <span class="float-end">
                     {{ $resorts->links() }}
                 </span>
             </div>

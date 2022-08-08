@@ -10,10 +10,11 @@ use Illuminate\Support\Facades\File;
 class ResortController extends Controller
 {
 
-    public function view()
+    public function index()
     {
-        $resort = Resort::latest()->paginate();
-        return view('resort.view_resort', ['resorts'=>$resort]);
+        $resort = Resort::latest()->paginate(5);
+        return view('resort.view_resort', ['resorts' => $resort]);
+
 
     }
 
@@ -31,8 +32,8 @@ class ResortController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'location' => ['required', 'string', 'max:255'],
             'price' => ['required'],
-            'description' => ['nullable','max:255'],
-            'image' => ['required','file'],
+            'description' => ['nullable', 'max:255'],
+            'image' => ['required', 'file'],
         ]);
 
         $resort = new Resort();
@@ -41,32 +42,32 @@ class ResortController extends Controller
         $resort->price = $request->price;
         $resort->description = $request->description;
 
-        if($request->hasFile('image')){
+        if ($request->hasFile('image')) {
             $file = $request->file('image');
             $extension = $file->getClientOriginalExtension();
-            $filename = time().'.'.$extension;
+            $filename = time() . '.' . $extension;
             $file->move('uploads/resorts', $filename);
             $resort->image = $filename;
         }
         $resort->save();
 
 
-        return redirect('view-resort')->with('message','Resort added Successfully');
+        return redirect('view-resort')->with('message', 'Resort added Successfully');
     }
 
 
-    public function delete($id)
+    public function destroy($id)
     {
         $resort = Resort::find($id);
-        $resort -> delete();
-        return redirect('/view-resort')->with('message','Resort Destroyed Successfully');
+        $resort->delete();
+        return redirect('/view-resort')->with('message', 'Resort Destroyed Successfully');
     }
 
 
-    public function showData($id)
+    public function show($id)
     {
         $resort = Resort::find($id);
-        return view('resort.edit_resort', ['resorts'=>$resort]);
+        return view('resort.edit_resort', ['resorts' => $resort]);
     }
 
 
@@ -76,8 +77,8 @@ class ResortController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'location' => ['required', 'string', 'max:255'],
             'price' => ['required'],
-            'description' => ['nullable','max:255'],
-            'image' => ['nullable','file'],
+            'description' => ['nullable', 'max:255'],
+            'image' => ['nullable', 'file'],
         ]);
 
         $resort = Resort::find($req->id);
@@ -86,16 +87,16 @@ class ResortController extends Controller
         $resort->price = $req->price;
         $resort->description = $req->description;
 
-        if($req->hasFile('image')){
+        if ($req->hasFile('image')) {
 
             $destination = 'uploads/resorts' . $resort->image;
-            if(File::exists($destination)){
+            if (File::exists($destination)) {
                 File::delete($destination);
             }
 
             $file = $req->file('image');
             $extension = $file->getClientOriginalExtension();
-            $filename = time().'.'.$extension;
+            $filename = time() . '.' . $extension;
             $file->move('uploads/resorts', $filename);
             $resort->image = $filename;
         }
@@ -104,15 +105,4 @@ class ResortController extends Controller
 
         return redirect('view-resort')->with('message', 'Resort Update Successfully');
     }
-
-
-
-
-
-    public function homepage()
-    {
-        $resort = Resort::all();
-        return view('resort', ['resorts'=>$resort]);
-    }
-
 }
