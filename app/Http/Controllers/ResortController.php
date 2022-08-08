@@ -12,8 +12,8 @@ class ResortController extends Controller
 
     public function view()
     {
-        $data = Resort::paginate(4);
-        return view('resort.view_resort', ['users'=>$data]);
+        $resort = Resort::latest()->paginate();
+        return view('resort.view_resort', ['resorts'=>$resort]);
 
     }
 
@@ -27,52 +27,68 @@ class ResortController extends Controller
     public function store(Request $request)
     {
 
-        $data = new Resort();
-        $data->name = $request->name;
-        $data->location = $request->location;
-        $data->price = $request->price;
-        $data->description = $request->description;
+        $validate = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'location' => ['required', 'string', 'max:255'],
+            'price' => ['required'],
+            'description' => ['nullable','max:255'],
+            'image' => ['required','file'],
+        ]);
+
+        $resort = new Resort();
+        $resort->name = $request->name;
+        $resort->location = $request->location;
+        $resort->price = $request->price;
+        $resort->description = $request->description;
 
         if($request->hasFile('image')){
             $file = $request->file('image');
             $extension = $file->getClientOriginalExtension();
             $filename = time().'.'.$extension;
             $file->move('uploads/resorts', $filename);
-            $data->image = $filename;
+            $resort->image = $filename;
         }
-        $data->save();
+        $resort->save();
 
 
-        return redirect('view-resort')->with('status', 'Resort Added Successfully');
+        return redirect('view-resort')->with('message','Resort added Successfully');
     }
 
 
     public function delete($id)
     {
-        $data = Resort::find($id);
-        $data -> delete();
-        return redirect('/view-resort')->with('status', 'User Deleted Successfully');
+        $resort = Resort::find($id);
+        $resort -> delete();
+        return redirect('/view-resort')->with('message','Resort Destroyed Successfully');
     }
 
 
     public function showData($id)
     {
-        $data = Resort::find($id);
-        return view('resort.edit_resort', ['users'=>$data]);
+        $resort = Resort::find($id);
+        return view('resort.edit_resort', ['resorts'=>$resort]);
     }
 
 
     public function update(Request $req)
     {
-        $data = Resort::find($req->id);
-        $data->name = $req->name;
-        $data->location = $req->location;
-        $data->price = $req->price;
-        $data->description = $req->description;
+        $validate = $req->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'location' => ['required', 'string', 'max:255'],
+            'price' => ['required'],
+            'description' => ['nullable','max:255'],
+            'image' => ['nullable','file'],
+        ]);
+
+        $resort = Resort::find($req->id);
+        $resort->name = $req->name;
+        $resort->location = $req->location;
+        $resort->price = $req->price;
+        $resort->description = $req->description;
 
         if($req->hasFile('image')){
 
-            $destination = 'uploads/resorts' . $data->image;
+            $destination = 'uploads/resorts' . $resort->image;
             if(File::exists($destination)){
                 File::delete($destination);
             }
@@ -81,12 +97,12 @@ class ResortController extends Controller
             $extension = $file->getClientOriginalExtension();
             $filename = time().'.'.$extension;
             $file->move('uploads/resorts', $filename);
-            $data->image = $filename;
+            $resort->image = $filename;
         }
-        $data->save();
+        $resort->save();
 
 
-        return redirect('view-resort')->with('status', 'Resort Added Successfully');
+        return redirect('view-resort')->with('message', 'Resort Update Successfully');
     }
 
 
