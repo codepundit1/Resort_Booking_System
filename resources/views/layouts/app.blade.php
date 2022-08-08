@@ -33,32 +33,43 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/') }}">Home</a>
-                        </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url('resort') }}">Resort</a>
-                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
+                        @if (Auth::user())
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{{ url('home') }}">Dashboard</a>
+                        </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('home') }}">Dashboard</a>
+                            <a class="nav-link " aria-current="page" href="{{ url('/view-user') }}">User</a>
+                          </li>
+
+                          <li class="nav-item">
+                            <a class="nav-link " href="{{ url('view-resort') }}">Resort List</a>
+                          </li>
+
+                          <li class="nav-item">
+                            <a class="nav-link " href="{{ url('view-booking') }}">Booking</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="{{ url('resort') }}">Resort</a>
                         </li>
+                        @else
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('resort') }}">Resort</a>
+                        </li>
+
+                        @endif
+
+
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
                         @else

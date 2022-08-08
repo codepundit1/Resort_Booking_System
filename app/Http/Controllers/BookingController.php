@@ -23,6 +23,6 @@ class BookingController extends Controller
         $data->checkin = $request->checkin;
         $data->checkout = $request->checkout;
         $data->save();
-        return redirect('/view-booking')->with('status', 'User Added Successfully');
+        return redirect('/')->with('status', 'User Added Successfully');
     }
 }
