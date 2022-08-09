@@ -54,12 +54,12 @@
                             </div>
 
                             <div class=" row input-group col-md-12 mb-3">
-                                <div class=" col-md-8 mb-3">
+                                <div class=" col-md-6 mb-3">
                                     <label for="description" class="form-label">Description</label>
-                                    <input type="text" name="description" class="form-control"
-                                        value="{{ $resorts->description }}" id="description">
+                                    <textarea type="text" name="description" class="form-control"
+                                        id="description"> {{ $resorts->description }}</textarea>
                                 </div>
-                                <div class=" col-md-4 mb-3">
+                                <div class=" col-md-6 mb-3">
                                     <label for="price"
                                         class="form-label @error('price') is-invalid @enderror">Price</label>
                                     <input type="text" name="price" value="{{ $resorts->price }}" class="form-control"

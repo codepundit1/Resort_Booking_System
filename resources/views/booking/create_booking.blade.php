@@ -15,21 +15,21 @@
                     @csrf
                     <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
-                        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" aria-describedby="name" placeholder="Enter Your Name">
+                        <input type="text" value="{{ old('name') }}" class="form-control @error('name') is-invalid @enderror" name="name" id="name" aria-describedby="name" placeholder="Enter Your Name">
                         @error('name')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email address</label>
-                        <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" id="email" placeholder="Enter your valid email">
+                        <input type="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" name="email" id="email" placeholder="Enter your valid email">
                         @error('email')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="mb-3">
                         <label for="phone" class="form-label">Phone No.</label>
-                        <input type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" id="phone" placeholder="Enter Phone Number">
+                        <input type="text" value="{{ old('phone') }}" class="form-control @error('phone') is-invalid @enderror" name="phone" id="phone" placeholder="Enter Phone Number">
                         @error('phone')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
@@ -37,14 +37,14 @@
 
                     <div class="mb-3">
                         <label for="checkin" class="form-label">Check In</label>
-                        <input type="date" class="form-control @error('checkin') is-invalid @enderror" name="checkin" id="checkin">
+                        <input type="date" value="{{ old('checkin') }}" class="form-control @error('checkin') is-invalid @enderror" name="checkin" id="checkin">
                         @error('checkin')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="mb-3">
                         <label for="checkout" class="form-label">Check Out</label>
-                        <input type="date" class="form-control @error('checkout') is-invalid @enderror" id="checkout" name="checkout">
+                        <input type="date" value="{{ old('checkout') }}" class="form-control @error('checkout') is-invalid @enderror" id="checkout" name="checkout">
                         @error('checkout')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
