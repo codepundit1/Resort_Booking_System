@@ -17,11 +17,11 @@ class CreateBookingsTable extends Migration
             $table->id();
             $table->foreignId('resort_id')->constrained('resorts')->cascadeOnDelete();
             $table->string('name');
-            // $table->string('email');
-            // $table->string('phone');
-            // $table->date('checkin');
-            // $table->date('checkout');
-            // $table->timestamps();
+            $table->string('email');
+            $table->string('phone');
+            $table->date('checkin');
+            $table->date('checkout');
+            $table->timestamps();
         });
     }
 

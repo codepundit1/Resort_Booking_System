@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 //homepage resort
-Route::get('/', HomepageController::class);
+Route::get('/', HomepageController::class)->name('homepage');
 
 
 Auth::routes();
@@ -46,12 +46,8 @@ Route::get('edit-resort/{id}', [ResortController::class, 'show']);
 Route::post('edit-resort/{id}', [ResortController::class, 'update'])->name('resort.update');
 
 
-
-
-//booking
-Route::get('create_booking', function () {
-    return view('booking');
-});
-Route::get('view-booking', [BookingController::class, 'view']);
-Route::post('resorts/{$resort->id}/add-booking', [BookingController::class, 'add'])->name('add_booking');
+// booking
+Route::get('bookings', [BookingController::class, 'index'])->name('booking.index');
+Route::get('resorts/{resort}/booking', [BookingController::class, 'create'])->name('booking.create');
+Route::post('resorts/{resort}/booking', [BookingController::class, 'store'])->name('booking.store');
 

@@ -77,7 +77,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link " href="{{ url('view-booking') }}">Booking</a>
+                                <a class="nav-link " href="{{ route('booking.index') }}">Booking</a>
                             </li>
                         @else
                             <li class="nav-item">
