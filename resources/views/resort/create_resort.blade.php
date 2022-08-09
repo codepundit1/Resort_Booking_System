@@ -21,7 +21,7 @@
                                     <input type="text" value="{{ old('name') }}" name="name" class="form-control @error('name') is-invalid @enderror" id="name"
                                         aria-describedby="name">
                                     @error('name')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="alert text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="col-md-6 mb-3">
@@ -29,7 +29,7 @@
                                     <input type="text" value="{{ old('location') }}" name="location" class="form-control @error('location') is-invalid @enderror" id="location"
                                         aria-describedby="location">
                                     @error('location')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="alert text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
@@ -40,7 +40,7 @@
                                     <input type="file" value="{{ old('image') }}" name="image" class="form-control @error('image') is-invalid @enderror" id="image"
                                         aria-describedby="image">
                                     @error('image')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="alert text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="col-md-6 mb-3">
@@ -48,7 +48,7 @@
                                     <input type="text" value="{{ old('price') }}" name="price" class="form-control @error('price') is-invalid @enderror" id="price"
                                         aria-describedby="price">
                                     @error('price')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="alert text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>

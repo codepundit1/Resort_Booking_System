@@ -14,12 +14,25 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3>
-                            Resort List <span> </span>
-                            <span class="mr-3"><a class="btn btn-primary btn-sm float-end" href="{{ url('add-resort') }}">Add
-                                    Resort</a></span> <a href="{{ url('home') }}"
-                                class="btn btn-primary btn-sm float-end">Back</a>
-                        </h3>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <form action="">
+                                    <div class="form-group">
+                                        <input type="search" name="search" id=""  class="form-control"
+                                            placeholder="Search By Name, email, price ">
+                                    </div>
+                                    <button class="btn-primary btn-sm">Search</button>
+                                </form>
+                            </div>
+
+                            <div class="col-md-4">
+
+                                <span class="mr-3"><a class="btn btn-primary btn-sm float-end"
+                                        href="{{ url('add-resort') }}">Add
+                                        Resort</a></span> <a href="{{ url('home') }}"
+                                    class="btn btn-primary btn-sm float-end">Back</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -45,8 +58,8 @@
                                 <td>{{ $resort->location }}</td>
                                 <td>{{ $resort->price }}</td>
                                 <td>
-                                    <img src="{{ $resort->image }}" width="80px"
-                                        height="80px" alt="" class="img-fluid">
+                                    <img src="{{ $resort->image }}" width="80px" height="80px" alt=""
+                                        class="img-fluid">
                                 </td>
 
                                 <td>

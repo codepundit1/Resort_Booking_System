@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\BookingMail;
+use App\Mail\BookingConfirmation;
+use App\Mail\NewMailReceived;
 use App\Models\Resort;
 use App\Models\Booking;
 use Illuminate\Http\Request;
@@ -28,7 +29,7 @@ class BookingController extends Controller
     {
         $valid = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255', 'unique:bookings,email,$this->id,id'],
+            'email' => ['required', 'email', 'max:255'],
             'phone' => ['required', 'digits:11'],
             'checkin' => ['required', 'date', 'after_or_equal:today'],
             'checkout' => ['required', 'date', 'after_or_equal:checkin'],
@@ -39,15 +40,16 @@ class BookingController extends Controller
         if($booking)
             {
                 // send mail
-                // try
-                // {
-                //     Mail::to($booking->email)->send(new BookingMail($booking));
-                // }
+                try
+                {
+                    Mail::to($booking->email)->send(new BookingConfirmation($booking));
+                    Mail::to('admin@gmail.com')->send(new NewMailReceived());
+                }
 
-                // catch(\Exception $exception)
-                // {
+                catch(\Exception $exception)
+                {
 
-                // }
+                }
 
                 return redirect('/')->with('message',' Booking Complete Successfully');
             }
