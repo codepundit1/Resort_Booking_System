@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Resort;
-use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class ResortController extends Controller
 {
@@ -28,38 +28,36 @@ class ResortController extends Controller
     public function store(Request $request)
     {
 
-        $validate = $request->validate([
+        $valid = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'location' => ['required', 'string', 'max:255'],
-            'price' => ['required'],
+            'price' => ['required', 'numeric', 'gt:0'],
             'description' => ['nullable', 'max:255'],
-            'image' => ['required', 'file'],
+            'image' => ['required','image','max:2048'],
         ]);
 
-        $resort = new Resort();
-        $resort->name = $request->name;
-        $resort->location = $request->location;
-        $resort->price = $request->price;
-        $resort->description = $request->description;
 
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $extension = $file->getClientOriginalExtension();
-            $filename = time() . '.' . $extension;
-            $file->move('uploads/resorts', $filename);
-            $resort->image = $filename;
-        }
-        $resort->save();
+        if($request->hasFile('image'))
+            $valid['image'] = $request->file('image')->store('ResortImages', 'public');
 
+        if(Resort::create($valid));
+            return redirect('view-resort')->with('message', 'Resort added Successfully');
 
-        return redirect('view-resort')->with('message', 'Resort added Successfully');
+        return back()->with('error', 'Somethings Went Wrong');
+
     }
+
 
 
     public function destroy($id)
     {
         $resort = Resort::find($id);
+
+        if (Storage::disk('public')->exists($resort->getRawOriginal('image')))
+            Storage::disk('public')->delete($resort->getRawOriginal('image'));
+
         $resort->delete();
+
         return redirect('/view-resort')->with('message', 'Resort Destroyed Successfully');
     }
 
@@ -71,38 +69,30 @@ class ResortController extends Controller
     }
 
 
-    public function update(Request $req)
+    public function update(Request $request, $id)
     {
-        $validate = $req->validate([
+        $valid = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'location' => ['required', 'string', 'max:255'],
-            'price' => ['required'],
+            'price' => ['required','numeric','gt:0'],
             'description' => ['nullable', 'max:255'],
-            'image' => ['nullable', 'file'],
+            'image' => ['nullable', 'image', 'max:2048'],
         ]);
 
-        $resort = Resort::find($req->id);
-        $resort->name = $req->name;
-        $resort->location = $req->location;
-        $resort->price = $req->price;
-        $resort->description = $req->description;
+        $resort = Resort::findOrFail($id);
 
-        if ($req->hasFile('image')) {
+        if($request->hasFile('image'))
+            {
+                if (Storage::disk('public')->exists($resort->getRawOriginal('image')))
+                    Storage::disk('public')->delete($resort->getRawOriginal('image'));
 
-            $destination = 'uploads/resorts' . $resort->image;
-            if (File::exists($destination)) {
-                File::delete($destination);
+                $valid['image'] = $request->file('image')->store('ResortImages', 'public');
             }
 
-            $file = $req->file('image');
-            $extension = $file->getClientOriginalExtension();
-            $filename = time() . '.' . $extension;
-            $file->move('uploads/resorts', $filename);
-            $resort->image = $filename;
-        }
-        $resort->save();
+        if($resort->update($valid))
+            return redirect('view-resort')->with('message', 'Resort updated Successfully');
 
+        return back()->with('error', 'Somethings Went Wrong');
 
-        return redirect('view-resort')->with('message', 'Resort Update Successfully');
     }
 }

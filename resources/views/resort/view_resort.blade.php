@@ -45,7 +45,7 @@
                                 <td>{{ $resort->location }}</td>
                                 <td>{{ $resort->price }}</td>
                                 <td>
-                                    <img src="{{ asset('uploads/resorts/' . $resort->image) }}" width="80px"
+                                    <img src="{{ $resort->image }}" width="80px"
                                         height="80px" alt="" class="img-fluid">
                                 </td>
 

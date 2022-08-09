@@ -19,6 +19,6 @@ class Booking extends Model
 
     public function resort()
     {
-        return $this->belongsTo(Resort::class, 'foreign_key', 'local_key');
+        return $this->belongsTo(Resort::class);
     }
 }

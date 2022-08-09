@@ -8,11 +8,11 @@
                     <div class="card-header">
                         <h3>
                             Edit Resort
-                            <a href="{{ url('view-resort') }}" class="btn btn-primary btn-sm float-end">Back</a>
+                            <a href="{{ route('resort.view') }}" class="btn btn-primary btn-sm float-end">Back</a>
                         </h3>
                     </div>
                     <div class="card-body">
-                        <form action="/edit-resort" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('resort.update', $resorts->id) }}}}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="id" value="{{ $resorts->id }}">
                             <div class=" row input-group col-md-12 mb-3">
@@ -48,7 +48,7 @@
                                     @enderror
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <img src="{{ asset('uploads/resorts/' . $resorts->image) }}" width="80px"
+                                    <img src="{{ $resorts->image }}" width="80px"
                                         height="80px" alt="">
                                 </div>
                             </div>

@@ -13,7 +13,7 @@
                 <div class="col-md-4 p-3">
                     <div class="card" style="width: 18rem">
                         <div style="max-width:450px; max-height:450px; overflow: hidden;">
-                            <img src="{{ asset('uploads/resorts/'. $resort->image) }}" class="img-fluid">
+                            <img src="{{ $resort->image }}" class="img-fluid">
                         </div>
                         <div class="card-body">
                             <h3 class="card-title">{{ $resort->name }}</h3>
