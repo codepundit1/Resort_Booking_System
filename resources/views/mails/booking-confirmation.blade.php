@@ -1,7 +1,14 @@
 @component('mail::message')
-# Introduction
+# Hello {{ $booking->name }}
 
-Your Booked your resort successfully!! {{ $booking->resort->date }}, from{{ $booking->checkin }} to {{ $booking->checkout }}
+Your resort Booking is success!! {{ $booking->resort->date }}, from{{ $booking->checkin }} to {{ $booking->checkout }}
+
+@component('mail::table')
+| Resort Name    | Price Per Day    | Location |
+| :-------------:  |:-------------:   | :--------:|
+| {{ $booking->resort->name }}       | {{ $booking->resort->price }}         | {{ $booking->resort->location }}      |
+@endcomponent
+
 
 @component('mail::button', ['url' => ''])
 Button Text

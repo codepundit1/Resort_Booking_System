@@ -19,11 +19,6 @@ class BookingConfirmation extends Mailable
         $this->booking = $booking;
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
     public function build()
     {
         return $this->markdown('mails.booking-confirmation');

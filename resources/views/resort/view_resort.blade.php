@@ -15,7 +15,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-md-8">
+                            {{-- <div class="col-md-8">
 
                                 <form action="" method="GET">
                                     <div class="form-group">
@@ -25,7 +25,7 @@
                                     <button class="btn-primary btn-sm">Search</button>
                                 </form>
 
-                            </div>
+                            </div> --}}
 
                             <div class="col-md-4">
 

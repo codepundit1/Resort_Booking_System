@@ -28,6 +28,7 @@ class BookingController extends Controller
 
     public function store(Request $request, Resort $resort)
     {
+        // Checking Date exits or not
         $bookingExits = Booking::where('resort_id',$request->resort_id)
         ->whereBetween('checkin',[$request->checkin, $request->checkout])
         ->orWhereBetween('checkout',[$request->checkin, $request->checkout])
@@ -62,7 +63,7 @@ class BookingController extends Controller
                 try
                 {
                     Mail::to($booking->email)->send(new BookingConfirmation($booking));
-                    Mail::to('admin@gmail.com')->send(new NewMailReceived());
+                    Mail::to('admin@gmail.com')->send(new NewMailReceived($booking));
                 }
 
                 catch(\Exception $exception)

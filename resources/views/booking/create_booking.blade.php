@@ -14,7 +14,7 @@
 
                     @csrf
                     <div class="mb-3">
-                        <label for="name" class="form-label">Name</label>
+                        <label for="name" class="form-label">User Name</label>
                         <input type="text" value="{{ old('name') }}" class="form-control @error('name') is-invalid @enderror" name="name" id="name" aria-describedby="name" placeholder="Enter Your Name">
                         @error('name')
                         <div class="alert alert-danger">{{ $message }}</div>
