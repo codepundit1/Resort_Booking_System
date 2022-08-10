@@ -16,13 +16,15 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-8">
-                                <form action="">
+
+                                <form action="#" method="GET">
                                     <div class="form-group">
-                                        <input type="search" name="search" id=""  class="form-control"
-                                            placeholder="Search By Name, email, price ">
+                                        <input type="text" name="search" id=""  class="form-control"
+                                            placeholder="Find Somethings">
                                     </div>
                                     <button class="btn-primary btn-sm">Search</button>
                                 </form>
+
                             </div>
 
                             <div class="col-md-4">

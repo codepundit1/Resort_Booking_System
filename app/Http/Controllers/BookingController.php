@@ -27,7 +27,19 @@ class BookingController extends Controller
 
     public function store(Request $request, Resort $resort)
     {
-        $valid = $request->validate([
+        $bookingExits = Booking::where('resort_id', $request->resort_id)
+            ->where('checkin', '>=', $request['checkin'])
+            ->where('checkout', '<=', $request['checkin'])
+            ->get();
+
+        if($bookingExits)
+        {
+            return view('datecheck.error');
+        }
+
+        else
+        {
+             $valid = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255'],
             'phone' => ['required', 'digits:11'],
@@ -54,6 +66,8 @@ class BookingController extends Controller
                 return redirect('/')->with('message',' Booking Complete Successfully');
             }
         return back()->with('error', 'Somethings Went Wrong');
+        }
+
     }
 
 

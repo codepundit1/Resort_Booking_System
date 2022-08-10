@@ -51,3 +51,4 @@ Route::get('bookings', [BookingController::class, 'index'])->name('booking.index
 Route::get('resorts/{resort}/booking', [BookingController::class, 'create'])->name('booking.create');
 Route::post('resorts/{resort}/booking', [BookingController::class, 'store'])->name('booking.store');
 
+
