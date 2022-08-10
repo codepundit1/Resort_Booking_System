@@ -9,6 +9,7 @@ use App\Models\Booking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
+use App\Models\User;
 
 class BookingController extends Controller
 {
@@ -57,13 +58,14 @@ class BookingController extends Controller
 
         $booking = $resort->bookings()->create($valid);
 
+        $user = User::first();
         if($booking)
             {
                 // send mail
                 try
                 {
                     Mail::to($booking->email)->send(new BookingConfirmation($booking));
-                    Mail::to('admin@gmail.com')->send(new NewMailReceived($booking));
+                    Mail::to($user->email)->send(new NewMailReceived($booking, $user));
                 }
 
                 catch(\Exception $exception)

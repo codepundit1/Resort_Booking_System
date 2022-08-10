@@ -1,5 +1,5 @@
 @component('mail::message')
-# Hello, {{ Auth::user()->name }}!!
+# Hello, {{ $user->name }}!!
 
 A new booking has been received for {{ $booking->resort->name }}
 
