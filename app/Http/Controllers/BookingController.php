@@ -8,6 +8,7 @@ use App\Models\Resort;
 use App\Models\Booking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\DB;
 
 class BookingController extends Controller
 {
@@ -27,14 +28,20 @@ class BookingController extends Controller
 
     public function store(Request $request, Resort $resort)
     {
-        $bookingExits = Booking::where('resort_id', $request->resort_id)
-            ->where('checkin', '>=', $request['checkin'])
-            ->where('checkout', '<=', $request['checkin'])
-            ->get();
+        $bookingExits = Booking::where('resort_id',$request->resort_id)
+        ->whereBetween('checkin',[$request->checkin, $request->checkout])
+        ->orWhereBetween('checkout',[$request->checkin, $request->checkout])
+        ->orWhere(function($query) use($request){
+            $query->where('checkin','<=',$request->checkin)
+                ->where('checkout','>=',$request->checkout);
+        })->first();
+
+
 
         if($bookingExits)
         {
             return view('datecheck.error');
+
         }
 
         else

@@ -17,10 +17,10 @@
                         <div class="row">
                             <div class="col-md-8">
 
-                                <form action="#" method="GET">
+                                <form action="" method="GET">
                                     <div class="form-group">
-                                        <input type="text" name="search" id=""  class="form-control"
-                                            placeholder="Find Somethings">
+                                        <input type="search" name="search" id=""  class="form-control"
+                                            placeholder="Search By Name, email, price ">
                                     </div>
                                     <button class="btn-primary btn-sm">Search</button>
                                 </form>
