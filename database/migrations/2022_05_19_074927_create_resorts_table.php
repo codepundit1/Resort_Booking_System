@@ -17,9 +17,9 @@ class CreateResortsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('image')->nullable();
-            $table->string('price')->nullable();
+            $table->double('price')->nullable();
             $table->string('location')->nullable();
-            $table->string('description')->nullable();
+            $table->longText('description')->nullable();
             $table->timestamps();
         });
     }

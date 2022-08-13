@@ -62,26 +62,26 @@
                         <!-- Authentication Links -->
                         @if (Auth::user())
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/') }}">Home</a>
+                                <a class="nav-link {{ Request::path() === '/' ? 'active' : '' }}" href="{{ url('/') }}">HomePage</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('home') }}">Dashboard</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link " aria-current="page" href="{{ url('/view-user') }}">User</a>
+                                <a class="nav-link {{ Request::path() === 'home' ? 'active' : '' }}" href="{{ url('home') }}">Dashboard</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link " href="{{ url('view-resort') }}">Resort List</a>
+                                <a class="nav-link {{ Request::path() === 'view-user' ? 'active' : '' }}" aria-current="page" href="{{ url('/view-user') }}">User</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link " href="{{ route('booking.index') }}">Booking</a>
+                                <a class="nav-link {{ Request::path() === 'view-resort' ? 'active' : '' }}" href="{{ url('view-resort') }}">Resort List</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link {{ Request::path() === 'bookings' ? 'active' : '' }}" href="{{ route('booking.index') }}">Booking</a>
                             </li>
                         @else
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/') }}">Home</a>
+                                <a class="nav-link {{ Request::path() === '/' ? 'active' : '' }}" href="{{ url('/') }}">Home</a>
                             </li>
                         @endif
 
