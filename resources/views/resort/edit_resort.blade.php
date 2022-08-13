@@ -14,6 +14,7 @@
                     <div class="card-body">
                         <form action="{{ route('resort.update', $resorts->id) }}}}" method="POST" enctype="multipart/form-data">
                             @csrf
+                            @method('PUT')
                             <input type="hidden" name="id" value="{{ $resorts->id }}">
                             <div class=" row input-group col-md-12 mb-3">
                                 <div class="col-md-6 mb-3">

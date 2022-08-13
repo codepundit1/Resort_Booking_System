@@ -30,7 +30,7 @@ Route::get('add-resort', [ResortController::class, 'create'])->name('resort.crea
 Route::post('store-resort', [ResortController::class, 'store'])->name('resort.store');
 Route::get('delete-resort/{id}', [ResortController::class, 'destroy']);
 Route::get('edit-resort/{id}', [ResortController::class, 'show']);
-Route::post('edit-resort/{id}', [ResortController::class, 'update'])->name('resort.update');
+Route::put('edit-resort/{id}', [ResortController::class, 'update'])->name('resort.update');
 
 
 // booking
