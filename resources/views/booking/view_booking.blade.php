@@ -42,7 +42,6 @@
                                 <td>{{ $booking->phone }}</td>
                                 <td>{{ $booking->checkin }}</td>
                                 <td>{{ $booking->checkout }}</td>
-                                <td><a href="" class="btn btn-primary btn-sm disabled"  >Approve/Notapprove</a></td>
                             </tr>
                         @endforeach
                     </tbody>

@@ -30,6 +30,7 @@
                 <th scope="col">SI.</th>
                 <th scope="col">Name</th>
                 <th scope="col">Email</th>
+                <th scope="col">Password</th>
                 <th scope="col">Action</th>
 
 
@@ -38,14 +39,15 @@
 
 
             <tbody>
-                @foreach ($users as $key=> $user)
+                @foreach ($users as $user)
                 <tr>
-                    <td>{{$key+1}}</td>
+                    <td>{{$loop->index+1}}</td>
                     <td>{{ $user['name'] }}</td>
                     <td>{{ $user['email'] }}</td>
+                    <td>{{ $user['password'] }}</td>
 
                     <td>
-                        <a title="edit" class="mr-1" href={{ "edit-user/" .$user['id'] }}><i class="fa fa-edit "></i></a>
+                        {{-- <a title="edit" class="mr-1" href={{ "edit-user/" .$user['id'] }}><i class="fa fa-edit "></i></a> --}}
                         <a title="delete" id="delete" href={{ "delete-user/" .$user['id'] }}><i class="fa fa-trash "></i></a>
                     </td>
                 </tr>

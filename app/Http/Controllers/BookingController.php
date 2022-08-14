@@ -30,54 +30,39 @@ class BookingController extends Controller
     public function store(Request $request, Resort $resort)
     {
         // Checking Date exits or not
-        $bookingExits = Booking::where('resort_id',$request->resort_id)
-        ->whereBetween('checkin',[$request->checkin, $request->checkout])
-        ->orWhereBetween('checkout',[$request->checkin, $request->checkout])
-        ->orWhere(function($query) use($request){
-            $query->where('checkin','<=',$request->checkin)
-                ->where('checkout','>=',$request->checkout);
-        })->first();
+        $bookingExits = Booking::where('resort_id', $request->resort_id)
+            ->whereBetween('checkin', [$request->checkin, $request->checkout])
+            ->orWhereBetween('checkout', [$request->checkin, $request->checkout])
+            ->orWhere(function ($query) use ($request) {
+                $query->where('checkin', '<=', $request->checkin)
+                    ->where('checkout', '>=', $request->checkout);
+            })->first();
 
-
-
-        if($bookingExits)
-        {
+        if ($bookingExits) {
             return view('datecheck.error');
+        } else {
+            $valid = $request->validate([
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'email', 'max:255'],
+                'phone' => ['required', 'digits:11'],
+                'checkin' => ['required', 'date', 'after_or_equal:today'],
+                'checkout' => ['required', 'date', 'after_or_equal:checkin'],
+            ]);
 
-        }
+            $booking = $resort->bookings()->create($valid);
 
-        else
-        {
-             $valid = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255'],
-            'phone' => ['required', 'digits:11'],
-            'checkin' => ['required', 'date', 'after_or_equal:today'],
-            'checkout' => ['required', 'date', 'after_or_equal:checkin'],
-        ]);
-
-        $booking = $resort->bookings()->create($valid);
-
-        $user = User::first();
-        if($booking)
-            {
+            $user = User::first();
+            if ($booking) {
                 // send mail
-                try
-                {
+                try {
                     Mail::to($booking->email)->send(new BookingConfirmation($booking));
                     Mail::to($user->email)->send(new NewMailReceived($booking, $user));
+                } catch (\Exception $exception) {
                 }
-
-                catch(\Exception $exception)
-                {
-
-                }
-
-                return redirect('/')->with('message',' Booking Complete Successfully');
+                return redirect('/')->with('message', ' Booking Complete Successfully');
             }
-        return back()->with('error', 'Somethings Went Wrong');
+            return back()->with('error', 'Somethings Went Wrong');
         }
-
     }
 
 

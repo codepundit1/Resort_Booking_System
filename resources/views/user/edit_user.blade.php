@@ -1,4 +1,4 @@
-
+{{--
 
 
 @extends('layouts.app')
@@ -24,22 +24,14 @@
                          <input type="hidden" name="id" value="{{ $users['id'] }}">
                         <div class="mb-3">
                           <label for="name" class="form-label" >Name</label>
-                          <input type="text" name="name" class="form-control"  value="{{ $users['name'] }}" id="name" aria-describedby="name">
+                          <input type="text" name="name" class="form-control"  value="{{ $users['name'] }}" id="name">
 
                         </div>
 
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" name="email" class="form-control"  value="{{ $users['email'] }}" id="email" aria-describedby="email">
-
+                            <input type="email" name="email" class="form-control"  value="{{ $users['email'] }}" id="email">
                           </div>
-
-                          <div class="mb-3">
-                            <label for="password" class="form-label">password</label>
-                            <input type="password" name="password" class="form-control" value="{{ $users['password'] }}" id="password" aria-describedby="password">
-                          </div>
-
-
                         <button type="submit" class="btn btn-primary">Update</button>
                       </form>
                 </div>
@@ -47,4 +39,4 @@
         </div>
     </div>
 </div>
-@endsection
+@endsection --}}

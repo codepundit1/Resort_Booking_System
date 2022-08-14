@@ -17,12 +17,12 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 //user
 Route::group(['middleware' => 'auth'], function() {
-    Route::get('/view-user', [UserController::class, 'view'])->name('user.view');
+    Route::get('view-user', [UserController::class, 'index'])->name('user.view');
     Route::get('add-user', [UserController::class, 'create'])->name('user.create');
     Route::post('store-user', [UserController::class, 'store'])->name('user.store');
     Route::get('delete-user/{id}', [UserController::class, 'delete'])->name('user.delete');
-    Route::get('edit-user/{id}', [UserController::class, 'showData'])->name('user.show');
-    Route::post('edit-user', [UserController::class, 'update'])->name('user.update');
+    Route::get('edit-user/{id}', [UserController::class, 'show'])->name('user.show');
+    Route::post('edit-user/{id}', [UserController::class, 'update'])->name('user.update');
 });
 
 
