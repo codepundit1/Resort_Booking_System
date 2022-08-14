@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('styles')
+{{-- @section('styles')
     <style>
         .w-5 {
             display: none;
         }
     </style>
-@endsection
+@endsection --}}
 
 @section('content')
     <div class="container">
@@ -29,11 +29,8 @@
 
                             <div class="col-md-4">
 
-                                <div class="float-end"><a class="btn btn-success btn-sm"
-                                        href="{{ route('resort.create') }}">Add
-                                        Resort</a> <a class="btn btn-danger btn-sm" href="{{ route('resort.trashed') }}">Go to trashed</a> <a href="{{ url('home') }}"
-                                    class="btn btn-primary btn-sm ">Back</a>
-                                </div>
+                               <a href="{{ route('resort.view') }}"
+                                    class="btn btn-primary btn-sm float-end">Go Back</a>
                             </div>
                         </div>
                     </div>
@@ -66,18 +63,18 @@
                                 </td>
 
                                 <td>
-                                    <a title="edit" class="mr-1" href="{{ route('resort.show' , $resort->id) }}"><i
-                                            class="fa fa-edit "></i></a>
-                                    <a title="trash" id="trash" href="{{ 'delete-resort/' . $resort->id }}"><i style="color: #efb82d"
+                                    <a title="delete" class="mr-1" href="{{ route('resort.force-delete' , $resort->id) }}"><i style="color: red;"
                                             class="fa fa-trash "></i></a>
+                                    <a title="restore" id="trash" href="{{ route('resort.restore', $resort->id) }}"><i style="color: green;" class="fas fa-trash-restore"></i>
+                                            </a>
                                 </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
-                <span class="float-end">
+                {{-- <span class="float-end">
                     {{ $resorts->links() }}
-                </span>
+                </span> --}}
             </div>
         </div>
     </div>

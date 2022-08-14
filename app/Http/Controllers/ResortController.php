@@ -14,7 +14,12 @@ class ResortController extends Controller
     {
         $resort = Resort::latest()->paginate(5);
         return view('resort.view_resort', ['resorts' => $resort]);
+    }
 
+    public function trashed()
+    {
+        $resort = Resort::onlyTrashed()->get();
+        return view('resort.trashed_resort', ['resorts' => $resort]);
 
     }
 
@@ -22,7 +27,6 @@ class ResortController extends Controller
     {
         return view('resort.create_resort');
     }
-
 
 
     public function store(Request $request)
@@ -86,13 +90,30 @@ class ResortController extends Controller
     public function destroy($id)
     {
         $resort = Resort::findOrFail($id);
+        $resort->delete();
+
+        return redirect($resort->path())->with('message', 'Resort Trashed Successfully');
+    }
+
+    public function restore($id)
+    {
+        $resort = Resort::withTrashed()->findOrFail($id);
+        $resort->restore();
+
+        return back()->with('message', 'Resort Restore Successfully');
+    }
+
+    public function forceDelete($id)
+    {
+        $resort = Resort::withTrashed()->findOrFail($id);
 
         if (Storage::disk('public')->exists($resort->getRawOriginal('image')))
             Storage::disk('public')->delete($resort->getRawOriginal('image'));
 
-        $resort->delete();
+        $resort->forceDelete();
 
-        return redirect($resort->path())->with('message', 'Resort Destroyed Successfully');
+        return back()->with('message', 'Resort Deleted Successfully');
     }
+
 
 }

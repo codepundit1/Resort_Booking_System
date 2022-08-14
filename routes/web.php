@@ -35,6 +35,12 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('delete-resort/{id}', [ResortController::class, 'destroy'])->name('resort.destroy');
     Route::get('edit-resort/{id}', [ResortController::class, 'show'])->name('resort.show');
     Route::put('edit-resort/{id}', [ResortController::class, 'update'])->name('resort.update');
+
+    Route::get('resorts/trashed', [ResortController::class, 'trashed'])->name('resort.trashed');
+    Route::get('restore-resort/{id}', [ResortController::class, 'restore'])->name('resort.restore');
+    Route::get('resort-force-delete/{id}', [ResortController::class, 'forceDelete'])->name('resort.force-delete');
+
+
 });
 
 
