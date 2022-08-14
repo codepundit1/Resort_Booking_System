@@ -14,7 +14,7 @@ class CreateBookingsTable extends Migration
     public function up()
     {
         Schema::create('bookings', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->foreignId('resort_id')->constrained('resorts')->cascadeOnDelete();
             $table->string('name');
             $table->string('email');

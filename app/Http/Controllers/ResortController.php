@@ -76,7 +76,7 @@ class ResortController extends Controller
             }
 
         if($resort->update($valid))
-            return redirect(route('resort.view'))->with('message', 'Resort updated Successfully');
+            return redirect($resort->path())->with('message', 'Resort updated Successfully');
 
         return back()->with('error', 'Somethings Went Wrong');
 
@@ -92,7 +92,7 @@ class ResortController extends Controller
 
         $resort->delete();
 
-        return redirect(route('resort.view'))->with('message', 'Resort Destroyed Successfully');
+        return redirect($resort->path())->with('message', 'Resort Destroyed Successfully');
     }
 
 }

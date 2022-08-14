@@ -10,13 +10,12 @@ class Resort extends Model
 {
 
 
-    protected $fillable = [
-        'name',
-        'image',
-        'price',
-        'location',
-        'description',
-    ];
+    protected $guarded = [];
+
+    public function path()
+    {
+        return route('resort.view', $this);
+    }
 
     public function getImageAttribute($value): ?string
     {

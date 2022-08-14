@@ -11,7 +11,7 @@ class HomepageController extends Controller
 
     public function __invoke(Request $request)
     {
-        $resort = Resort::all();
+        $resort = Resort::latest()->get();
         return view('resort', ['resorts'=>$resort]);
     }
 }

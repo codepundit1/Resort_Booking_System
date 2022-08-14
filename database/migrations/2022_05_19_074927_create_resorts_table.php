@@ -14,7 +14,7 @@ class CreateResortsTable extends Migration
     public function up()
     {
         Schema::create('resorts', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('name');
             $table->string('image')->nullable();
             $table->double('price')->nullable();
