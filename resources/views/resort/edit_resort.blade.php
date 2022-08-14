@@ -12,7 +12,7 @@
                         </h3>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('resort.update', $resorts->id) }}}}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('resort.update', $resorts->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <input type="hidden" name="id" value="{{ $resorts->id }}">

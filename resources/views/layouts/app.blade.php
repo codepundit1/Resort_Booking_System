@@ -74,7 +74,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link {{ Request::path() === 'view-resort' ? 'active' : '' }}" href="{{ url('view-resort') }}">Resort List</a>
+                                <a class="nav-link {{ Request::path() === 'view-resort' ? 'active' : '' }}" href="{{ route('resort.view') }}">Resort List</a>
                             </li>
 
                             <li class="nav-item">

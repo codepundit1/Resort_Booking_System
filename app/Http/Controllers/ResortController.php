@@ -41,30 +41,16 @@ class ResortController extends Controller
             $valid['image'] = $request->file('image')->store('ResortImages', 'public');
 
         if(Resort::create($valid));
-            return redirect('view-resort')->with('message', 'Resort added Successfully');
+            return redirect(route('resort.view'))->with('message', 'Resort added Successfully');
 
         return back()->with('error', 'Somethings Went Wrong');
 
     }
 
 
-
-    public function destroy($id)
-    {
-        $resort = Resort::find($id);
-
-        if (Storage::disk('public')->exists($resort->getRawOriginal('image')))
-            Storage::disk('public')->delete($resort->getRawOriginal('image'));
-
-        $resort->delete();
-
-        return redirect('/view-resort')->with('message', 'Resort Destroyed Successfully');
-    }
-
-
     public function show($id)
     {
-        $resort = Resort::find($id);
+        $resort = Resort::findOrFail($id);
         return view('resort.edit_resort', ['resorts' => $resort]);
     }
 
@@ -90,9 +76,23 @@ class ResortController extends Controller
             }
 
         if($resort->update($valid))
-            return redirect('view-resort')->with('message', 'Resort updated Successfully');
+            return redirect(route('resort.view'))->with('message', 'Resort updated Successfully');
 
         return back()->with('error', 'Somethings Went Wrong');
 
     }
+
+
+    public function destroy($id)
+    {
+        $resort = Resort::findOrFail($id);
+
+        if (Storage::disk('public')->exists($resort->getRawOriginal('image')))
+            Storage::disk('public')->delete($resort->getRawOriginal('image'));
+
+        $resort->delete();
+
+        return redirect(route('resort.view'))->with('message', 'Resort Destroyed Successfully');
+    }
+
 }

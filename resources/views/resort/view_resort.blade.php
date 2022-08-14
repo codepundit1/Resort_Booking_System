@@ -30,7 +30,7 @@
                             <div class="col-md-4">
 
                                 <span class="mr-3"><a class="btn btn-primary btn-sm float-end"
-                                        href="{{ url('add-resort') }}">Add
+                                        href="{{ route('resort.create') }}">Add
                                         Resort</a></span> <a href="{{ url('home') }}"
                                     class="btn btn-primary btn-sm float-end">Back</a>
                             </div>
@@ -65,7 +65,7 @@
                                 </td>
 
                                 <td>
-                                    <a title="edit" class="mr-1" href="{{ 'edit-resort/' . $resort->id }}"><i
+                                    <a title="edit" class="mr-1" href="{{ route('resort.show' , $resort->id) }}"><i
                                             class="fa fa-edit "></i></a>
                                     <a title="delete" id="delete" href="{{ 'delete-resort/' . $resort->id }}"><i
                                             class="fa fa-trash "></i></a>
