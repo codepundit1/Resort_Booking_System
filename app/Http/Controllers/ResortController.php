@@ -12,16 +12,11 @@ class ResortController extends Controller
 
     public function index()
     {
-        $resort = Resort::latest()->paginate(5);
+        $resort = Resort::withTrashed()->latest()->paginate(5);
         return view('resort.view_resort', ['resorts' => $resort]);
     }
 
-    public function trashed()
-    {
-        $resort = Resort::onlyTrashed()->get();
-        return view('resort.trashed_resort', ['resorts' => $resort]);
 
-    }
 
     public function create()
     {
@@ -94,6 +89,7 @@ class ResortController extends Controller
 
         return redirect($resort->path())->with('message', 'Resort Trashed Successfully');
     }
+
 
     public function restore($id)
     {

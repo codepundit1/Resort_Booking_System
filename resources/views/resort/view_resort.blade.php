@@ -19,7 +19,7 @@
 
                                 <form action="" method="GET">
                                     <div class="form-group">
-                                        <input type="search" name="search" id=""  class="form-control"
+                                        <input type="search" name="search" id="" class="form-control"
                                             placeholder="Search By Name, email, price ">
                                     </div>
                                     <button class="btn-primary btn-sm">Search</button>
@@ -31,8 +31,7 @@
 
                                 <div class="float-end"><a class="btn btn-success btn-sm"
                                         href="{{ route('resort.create') }}">Add
-                                        Resort</a> <a class="btn btn-danger btn-sm" href="{{ route('resort.trashed') }}">Go to trashed</a> <a href="{{ url('home') }}"
-                                    class="btn btn-primary btn-sm ">Back</a>
+                                        Resort</a> <a href="{{ url('home') }}" class="btn btn-primary btn-sm ">Back</a>
                                 </div>
                             </div>
                         </div>
@@ -43,11 +42,12 @@
                     <thead>
                         <tr>
                             <th scope="col">SI.</th>
-                            <th scope="col">Name</th>
+                            <th scope="col">R.Name</th>
                             <th scope="col">Description</th>
                             <th scope="col">Location</th>
                             <th scope="col">Price</th>
                             <th scope="col">Image</th>
+                            <th scope="col">Status</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -64,21 +64,36 @@
                                     <img src="{{ $resort->image }}" width="80px" height="80px" alt=""
                                         class="img-fluid">
                                 </td>
+                                <td>{{ $resort->deleted_at ? 'Inactive' : 'Active' }}</td>
 
                                 <td>
-                                    <a title="edit" class="mr-1" href="{{ route('resort.show' , $resort->id) }}"><i
-                                            class="fa fa-edit "></i></a>
-                                    <a title="trash" id="trash" href="{{ 'delete-resort/' . $resort->id }}"><i style="color: #efb82d"
-                                            class="fa fa-trash "></i></a>
+                                    @if ($resort->deleted_at)
+
+                                        <a title="delete" class="mb-1 px-3 btn btn-danger btn-sm "
+                                        href="{{ route('resort.force-delete', $resort->id) }}">
+                                        <i class="fa fa-trash "></i></a>
+
+                                        <a title="restore" class="btn btn-success px-3 btn-sm" id="trash" href="{{ route('resort.restore', $resort->id) }}"><i
+                                                 class="fas fa-trash-restore"></i>
+                                        </a>
+
+                                     @else
+                                        <a title="edit" class="mb-1 px-3 btn btn-primary btn-sm "
+                                            href="{{ route('resort.show', $resort->id) }}"><i class="fa fa-edit "></i></a>
+
+                                        <a title="trash" class="px-3 btn btn-warning btn-sm"
+                                            href="{{ 'delete-resort/' . $resort->id }}"><i class="fa fa-trash "></i></a>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
-                <span class="float-end">
-                    {{ $resorts->links() }}
-                </span>
+
             </div>
+            <span class="float-end">
+                {{ $resorts->links() }}
+            </span>
         </div>
     </div>
 @endsection
