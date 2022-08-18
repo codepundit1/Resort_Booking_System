@@ -13,14 +13,14 @@ class ResortController extends Controller
     public function index()
     {
         $resort = Resort::withTrashed()->latest()->paginate(5);
-        return view('resort.view_resort', ['resorts' => $resort]);
+        return view('resorts.index', ['resorts' => $resort]);
     }
 
 
 
     public function create()
     {
-        return view('resort.create_resort');
+        return view('resorts.create');
     }
 
 
@@ -40,17 +40,17 @@ class ResortController extends Controller
             $valid['image'] = $request->file('image')->store('ResortImages', 'public');
 
         if(Resort::create($valid));
-            return redirect(route('resort.view'))->with('message', 'Resort added Successfully');
+            return redirect(route('resorts.index'))->with('message', 'Resort added Successfully');
 
         return back()->with('error', 'Somethings Went Wrong');
 
     }
 
 
-    public function show($id)
+    public function edit($id)
     {
         $resort = Resort::findOrFail($id);
-        return view('resort.edit_resort', ['resorts' => $resort]);
+        return view('resorts.edit', ['resorts' => $resort]);
     }
 
 
@@ -75,7 +75,7 @@ class ResortController extends Controller
             }
 
         if($resort->update($valid))
-            return redirect($resort->path())->with('message', 'Resort updated Successfully');
+            return redirect(route('resorts.index'))->with('message', 'Resort updated Successfully');
 
         return back()->with('error', 'Somethings Went Wrong');
 
@@ -87,7 +87,7 @@ class ResortController extends Controller
         $resort = Resort::findOrFail($id);
         $resort->delete();
 
-        return redirect($resort->path())->with('message', 'Resort Trashed Successfully');
+        return redirect(route('resorts.index'))->with('message', 'Resort Trashed Successfully');
     }
 
 

@@ -8,11 +8,11 @@
                     <div class="card-header">
                         <h3>
                             Edit Resort
-                            <a href="{{ route('resort.view') }}" class="btn btn-primary btn-sm float-end">Back</a>
+                            <a href="{{ route('resorts.index') }}" class="btn btn-primary btn-sm float-end">Back</a>
                         </h3>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('resort.update', $resorts->id) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('resorts.update', $resorts->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <input type="hidden" name="id" value="{{ $resorts->id }}">

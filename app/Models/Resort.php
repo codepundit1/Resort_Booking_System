@@ -12,10 +12,10 @@ class Resort extends Model
     use SoftDeletes;
     protected $guarded = [];
 
-    public function path()
-    {
-        return route('resort.view', $this);
-    }
+    // public function path()
+    // {
+    //     return route('resorts.index', $this);
+    // }
 
     public function getImageAttribute($value): ?string
     {

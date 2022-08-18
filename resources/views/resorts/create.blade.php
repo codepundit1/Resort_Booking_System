@@ -8,12 +8,12 @@
                     <div class="card-header">
                         <h3>
                             Add Resort
-                            <a href="{{ route('resort.view') }}" class="btn btn-primary btn-sm float-end">Back</a>
+                            <a href="{{ route('resorts.index') }}" class="btn btn-primary btn-sm float-end">Back</a>
                         </h3>
                     </div>
 
                     <div class="card-body">
-                        <form action="{{ route('resort.store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('resorts.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class=" row input-group col-md-12 mb-3">
                                 <div class="col-md-6 mb-3">

@@ -22,24 +22,20 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('store-user', [UserController::class, 'store'])->name('user.store');
     Route::get('delete-user/{id}', [UserController::class, 'delete'])->name('user.delete');
     Route::get('edit-user/{id}', [UserController::class, 'show'])->name('user.show');
-    Route::post('edit-user/{id}', [UserController::class, 'update'])->name('user.update');
+    // Route::post('edit-user/{id}', [UserController::class, 'update'])->name('user.update');
+    Route::get('restore-user/{id}', [UserController::class, 'restore'])->name('user.restore');
+    Route::get('user-force-delete/{id}', [ResortController::class, 'forceDelete'])->name('user.force-delete');
+
+
 });
 
 
 
 //Resort
 Route::group(['middleware' => 'auth'], function() {
-    Route::get('resorts', [ResortController::class, 'index'])->name('resort.view');
-    Route::get('create-resort', [ResortController::class, 'create'])->name('resort.create');
-    Route::post('store-resort', [ResortController::class, 'store'])->name('resort.store');
-    Route::get('delete-resort/{id}', [ResortController::class, 'destroy'])->name('resort.destroy');
-    Route::get('edit-resort/{id}', [ResortController::class, 'show'])->name('resort.show');
-    Route::put('edit-resort/{id}', [ResortController::class, 'update'])->name('resort.update');
-
-    Route::get('restore-resort/{id}', [ResortController::class, 'restore'])->name('resort.restore');
-    Route::get('resort-force-delete/{id}', [ResortController::class, 'forceDelete'])->name('resort.force-delete');
-
-
+    Route::resource('resorts', ResortController::class);
+    Route::get('resorts/{id}/restore', [ResortController::class, 'restore'])->name('resorts.restore');
+    Route::get('resorts/{id}/force-delete', [ResortController::class, 'forceDelete'])->name('resorts.force-delete');
 });
 
 
