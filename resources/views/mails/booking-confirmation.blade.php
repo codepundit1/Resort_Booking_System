@@ -10,10 +10,6 @@ Your resort Booking is success!! {{ $booking->resort->date }}, from{{ $booking->
 @endcomponent
 
 
-@component('mail::button', ['url' => ''])
-Button Text
-@endcomponent
-
 Thanks,<br>
 {{ config('app.name') }}
 @endcomponent

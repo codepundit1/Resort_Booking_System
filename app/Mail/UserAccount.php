@@ -12,11 +12,12 @@ class UserAccount extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $user;
+    public $user, $password;
 
-    public function __construct(User $user)
+    public function __construct(User $user, $password)
     {
         $this->user = $user;
+        $this->password = $password;
     }
 
     /**
