@@ -32,65 +32,62 @@ class ResortController extends Controller
             'location' => ['required', 'string', 'max:255'],
             'price' => ['required', 'numeric', 'gt:0'],
             'description' => ['nullable', 'max:255'],
-            'image' => ['required','image','max:2048'],
+            'image' => ['required', 'image', 'max:2048'],
         ]);
 
 
-        if($request->hasFile('image'))
+        if ($request->hasFile('image'))
             $valid['image'] = $request->file('image')->store('ResortImages', 'public');
 
-        if(Resort::create($valid));
-            return redirect(route('resorts.index'))->with('message', 'Resort added Successfully');
+        if (Resort::create($valid));
+        return redirect(route('resorts.index'))->with('message', 'Resort added Successfully');
 
         return back()->with('error', 'Somethings Went Wrong');
-
     }
 
 
-    public function edit($id)
+    public function edit(Resort $resort)
     {
-        $resort = Resort::findOrFail($id);
+        $resort = Resort::findOrFail($resort->id);
         return view('resorts.edit', ['resorts' => $resort]);
     }
 
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Resort $resort)
     {
         $valid = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'location' => ['required', 'string', 'max:255'],
-            'price' => ['required','numeric','gt:0'],
+            'price' => ['required', 'numeric', 'gt:0'],
             'description' => ['nullable', 'max:255'],
             'image' => ['nullable', 'image', 'max:2048'],
         ]);
 
-        $resort = Resort::findOrFail($id);
+        $resort = Resort::findOrFail($resort->id);
 
-        if($request->hasFile('image'))
-            {
-                if (Storage::disk('public')->exists($resort->getRawOriginal('image')))
-                    Storage::disk('public')->delete($resort->getRawOriginal('image'));
+        if ($request->hasFile('image')) {
+            if (Storage::disk('public')->exists($resort->getRawOriginal('image')))
+                Storage::disk('public')->delete($resort->getRawOriginal('image'));
 
-                $valid['image'] = $request->file('image')->store('ResortImages', 'public');
-            }
+            $valid['image'] = $request->file('image')->store('ResortImages', 'public');
+        }
 
-        if($resort->update($valid))
+        if ($resort->update($valid))
             return redirect(route('resorts.index'))->with('message', 'Resort updated Successfully');
 
         return back()->with('error', 'Somethings Went Wrong');
-
     }
 
 
-    public function destroy($id)
+    public function destroy(Resort $resort)
     {
-        $resort = Resort::findOrFail($id);
+        $resort = Resort::findOrFail($resort->id);
         $resort->delete();
 
         return redirect(route('resorts.index'))->with('message', 'Resort Trashed Successfully');
     }
 
-
+    //Problem From Here
     public function restore($id)
     {
         $resort = Resort::withTrashed()->findOrFail($id);
@@ -110,6 +107,4 @@ class ResortController extends Controller
 
         return back()->with('message', 'Resort Deleted Successfully');
     }
-
-
 }

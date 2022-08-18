@@ -73,6 +73,7 @@
                                                 class="fas fa-trash-restore"></i>
                                         </a>
 
+
                                         <a title="delete" class=" px-3 btn btn-danger btn-sm "
                                             href="{{ route('resorts.force-delete', $resort->id) }}">
                                             <i class="fa fa-trash "></i></a>
@@ -84,7 +85,7 @@
                                             method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button title="delete" class=" px-3 btn btn-danger btn-sm ">
+                                            <button title="Trash" class=" px-3 btn btn-danger btn-sm ">
                                                 <i class="fa fa-trash "></i>
                                             </button>
                                         </form>
