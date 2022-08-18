@@ -16,6 +16,7 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-8">
+
                                 <form action="" method="GET">
                                     <div class="form-group">
                                         <input type="search" name="search" id="" class="form-control"
@@ -23,9 +24,11 @@
                                     </div>
                                     <button class="btn-primary btn-sm">Search</button>
                                 </form>
+
                             </div>
 
                             <div class="col-md-4">
+
                                 <div class="float-end"><a class="btn btn-success btn-sm"
                                         href="{{ route('resorts.create') }}">Add
                                         Resort</a> <a href="{{ url('home') }}" class="btn btn-primary btn-sm ">Back</a>
@@ -77,9 +80,14 @@
                                         <a title="edit" class="mb-1 px-3 btn btn-primary btn-sm "
                                             href="{{ route('resorts.edit', $resort->id) }}"><i class="fa fa-edit "></i></a>
 
-                                        <a title="trash" class="px-3 btn btn-warning btn-sm"
-                                            href="{{ route('resorts.destroy', $resort->id) }}"><i
-                                                class="fa fa-trash "></i></a>
+                                        <form action="{{ route('resorts.destroy', ['resort' => $resort->id]) }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button title="delete" class=" px-3 btn btn-danger btn-sm ">
+                                                <i class="fa fa-trash "></i>
+                                            </button>
+                                        </form>
                                     @endif
                                 </td>
                             </tr>

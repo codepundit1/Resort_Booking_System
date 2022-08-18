@@ -33,7 +33,7 @@ Route::group(['middleware' => 'auth'], function() {
 
 //Resort
 Route::group(['middleware' => 'auth'], function() {
-    Route::resource('resorts', ResortController::class);
+    Route::resource('resorts', ResortController::class)->except('show');
     Route::get('resorts/{id}/restore', [ResortController::class, 'restore'])->name('resorts.restore');
     Route::get('resorts/{id}/force-delete', [ResortController::class, 'forceDelete'])->name('resorts.force-delete');
 });
