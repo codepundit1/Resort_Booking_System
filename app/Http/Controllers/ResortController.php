@@ -31,7 +31,7 @@ class ResortController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'location' => ['required', 'string', 'max:255'],
             'price' => ['required', 'numeric', 'gt:0'],
-            'description' => ['nullable', 'max:255'],
+            'description' => ['required', 'max:255'],
             'image' => ['required', 'image', 'max:2048'],
         ]);
 
@@ -42,7 +42,7 @@ class ResortController extends Controller
         if (Resort::create($valid));
         return redirect(route('resorts.index'))->with('message', 'Resort added Successfully');
 
-        return back()->with('error', 'Somethings Went Wrong');
+        return redirect(route('resorts.index'))->with('error', 'Somethings Went Wrong');
     }
 
 
@@ -59,8 +59,8 @@ class ResortController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'location' => ['required', 'string', 'max:255'],
             'price' => ['required', 'numeric', 'gt:0'],
-            'description' => ['nullable', 'max:255'],
-            'image' => ['nullable', 'image', 'max:2048'],
+            'description' => ['required', 'max:255'],
+            'image' => ['required', 'image', 'max:2048'],
         ]);
 
         $resort = Resort::findOrFail($resort->id);
@@ -75,7 +75,7 @@ class ResortController extends Controller
         if ($resort->update($valid))
             return redirect(route('resorts.index'))->with('message', 'Resort updated Successfully');
 
-        return back()->with('error', 'Somethings Went Wrong');
+        return redirect(route('resorts.index'))->with('error', 'Somethings Went Wrong');
     }
 
 
@@ -93,7 +93,7 @@ class ResortController extends Controller
         $resort = Resort::withTrashed()->findOrFail($id);
         $resort->restore();
 
-        return back()->with('message', 'Resort Restore Successfully');
+        return redirect(route('resorts.index'))->with('message', 'Resort Restore Successfully');
     }
 
     public function forceDelete($id)
@@ -105,6 +105,6 @@ class ResortController extends Controller
 
         $resort->forceDelete();
 
-        return back()->with('message', 'Resort Deleted Successfully');
+        return redirect(route('resorts.index'))->with('message', 'Resort Deleted Successfully');
     }
 }

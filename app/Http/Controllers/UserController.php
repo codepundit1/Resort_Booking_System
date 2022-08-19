@@ -12,7 +12,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::withTrashed()->paginate();
+        $users = User::withTrashed()->paginate(15);
         return view('users.index', ['users' => $users]);
     }
 
@@ -45,20 +45,11 @@ class UserController extends Controller
         return redirect(route('users.index'))->with('message', 'User Added Successfully');
     }
 
-
-
-    // public function edit($id)
-    // {
-    //     $users = User::findOrFail($id);
-    //     return view('users.edit', ['users' => $users]);
-    // }
-
-
     public function destroy($id)
     {
         $user = User::find($id);
         $user->delete();
-        return back()->with('message', 'User Trash Successfully');
+        return redirect(route('users.index'))->with('message', 'User Trash Successfully');
     }
 
 
@@ -66,13 +57,13 @@ class UserController extends Controller
     {
         $user = User::withTrashed()->find($id);
         $user->restore();
-        return back()->with('message', 'User Restore Successfully');
+        return redirect(route('users.index'))->with('message', 'User Restore Successfully');
     }
 
     public function forceDelete($id)
     {
         $user = User::withTrashed()->find($id);
         $user->forceDelete();
-        return back()->with('message', 'User Deleted Successfully');
+        return redirect(route('users.index'))->with('message', 'User Deleted Successfully');
     }
 }

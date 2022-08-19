@@ -12,7 +12,8 @@
                         </h3>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('resorts.update', $resorts->id) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('resorts.update', $resorts->id) }}" method="POST"
+                            enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <input type="hidden" name="id" value="{{ $resorts->id }}">
@@ -23,7 +24,7 @@
                                         class="form-control @error('name') is-invalid @enderror"
                                         value="{{ $resorts->name }}" id="name" aria-describedby="name">
                                     @error('name')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="col-md-6 mb-3">
@@ -32,7 +33,7 @@
                                     <input type="text" name="location" value="{{ $resorts->location }}"
                                         class="form-control" id="location" aria-describedby="location">
                                     @error('location')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="text-danger">{{ $message }}</div>
                                     @enderror
 
                                 </div>
@@ -42,31 +43,34 @@
                                 <div class="col-md-6 mb-3">
                                     <label for="image"
                                         class="form-label @error('image') is-invalid @enderror">Image</label>
-                                    <input type="file" name="image" class="form-control" id="image"
-                                        aria-describedby="image">
+                                    <input type="file" name="image" class="form-control" id="image">
                                     @error('image')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <img src="{{ $resorts->image }}" width="80px"
-                                        height="80px" alt="">
+                                    <img src="{{ $resorts->image }}" width="80px" height="80px" alt="">
                                 </div>
                             </div>
 
                             <div class=" row input-group col-md-12 mb-3">
                                 <div class=" col-md-6 mb-3">
                                     <label for="description" class="form-label">Description</label>
-                                    <textarea type="text" name="description" class="form-control"
-                                        id="description"> {{ $resorts->description }}</textarea>
+                                    <textarea type="text" name="description" cols="30" rows="4"
+                                        class="form-control
+                                        @error('description') is-invalid @enderror"> {{ $resorts->description }}
+                                    </textarea>
+                                    @error('description')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class=" col-md-6 mb-3">
                                     <label for="price"
                                         class="form-label @error('price') is-invalid @enderror">Price</label>
                                     <input type="text" name="price" value="{{ $resorts->price }}" class="form-control"
-                                        id="price" aria-describedby="price">
+                                        id="price">
                                     @error('price')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>

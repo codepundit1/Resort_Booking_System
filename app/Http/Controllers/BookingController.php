@@ -58,6 +58,7 @@ class BookingController extends Controller
                     Mail::to($booking->email)->send(new BookingConfirmation($booking));
                     Mail::to($user->email)->send(new NewMailReceived($booking, $user));
                 } catch (\Exception $exception) {
+                    echo $exception-> getMessage();
                 }
                 return redirect('/')->with('message', ' Booking Complete Successfully');
             }
