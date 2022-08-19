@@ -10,12 +10,12 @@
                 <div class="card-header">
                     <h3>
                         User List
-                        <a href="{{ route('user.view') }}"  class="btn btn-primary btn-sm float-end">Back</a>
+                        <a href="{{ route('users.index') }}"  class="btn btn-primary btn-sm float-end">Back</a>
                     </h3>
                 </div>
 
                 <div class="card-body">
-                    <form action="store-user" method="POST">
+                    <form action="{{ route('users.store') }}" method="POST">
                         @csrf
                         <div class="mb-3">
                           <label for="name" class="form-label">Name</label>

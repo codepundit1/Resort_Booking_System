@@ -87,7 +87,7 @@ class ResortController extends Controller
         return redirect(route('resorts.index'))->with('message', 'Resort Trashed Successfully');
     }
 
-    //Problem From Here
+
     public function restore($id)
     {
         $resort = Resort::withTrashed()->findOrFail($id);

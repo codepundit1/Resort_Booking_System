@@ -13,12 +13,12 @@ class UserController extends Controller
     public function index()
     {
         $users = User::withTrashed()->paginate();
-        return view('user.view_user', ['users' => $users]);
+        return view('users.index', ['users' => $users]);
     }
 
     public function create()
     {
-        return view('user.create_user');
+        return view('users.create');
     }
 
     public function store(Request $request)
@@ -42,36 +42,37 @@ class UserController extends Controller
             echo $exception-> getMessage();
         }
 
-        return redirect(route('user.view'))->with('message', 'User Added Successfully');
+        return redirect(route('users.index'))->with('message', 'User Added Successfully');
     }
 
 
 
-    public function show($id)
+    // public function edit($id)
+    // {
+    //     $users = User::findOrFail($id);
+    //     return view('users.edit', ['users' => $users]);
+    // }
+
+
+    public function destroy($id)
     {
-        $users = User::findOrFail($id);
-        return view('user.edit_user', ['users' => $users]);
+        $user = User::find($id);
+        $user->delete();
+        return back()->with('message', 'User Trash Successfully');
     }
 
-
-    public function delete($id)
-    {
-        $users = User::find($id);
-        $users->delete();
-        return redirect(route('user.view'))->with('message', 'User Trash Successfully');
-    }
 
     public function restore($id)
     {
-        $users = User::withTrashed()->find($id);
-        $users->restore();
-        return redirect(route('user.view'))->with('message', 'User Restore Successfully');
+        $user = User::withTrashed()->find($id);
+        $user->restore();
+        return back()->with('message', 'User Restore Successfully');
     }
 
     public function forceDelete($id)
     {
-        $users = User::withTrashed()->findOrFail($id);
-        $users->forceDelete();
+        $user = User::withTrashed()->find($id);
+        $user->forceDelete();
         return back()->with('message', 'User Deleted Successfully');
     }
 }

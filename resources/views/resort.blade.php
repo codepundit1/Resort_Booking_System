@@ -22,7 +22,7 @@
                                 {{ $resort->description }}
                             </p>
 
-                            <a class="btn btn-primary btn-sm" href="{{ route('booking.create', $resort->id) }}"> Book Now</a>
+                            <a class="btn btn-primary btn-sm" href="{{ route('bookings.create', $resort->id) }}"> Book Now</a>
                         </div>
                     </div>
                 </div>

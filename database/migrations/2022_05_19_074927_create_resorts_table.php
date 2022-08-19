@@ -21,6 +21,7 @@ class CreateResortsTable extends Migration
             $table->string('location')->nullable();
             $table->longText('description')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

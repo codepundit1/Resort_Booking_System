@@ -10,7 +10,7 @@
                     <a href="#" class="btn btn-primary btn-sm float-end">Back</a>
                 </h3>
 
-                <form method="POST" action={{ route('booking.store', $resort->id) }} enctype="multipart/form-data">
+                <form method="POST" action={{ route('bookings.store', $resort->id) }} enctype="multipart/form-data">
 
                     @csrf
                     <div class="mb-3">

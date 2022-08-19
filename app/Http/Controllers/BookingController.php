@@ -17,13 +17,13 @@ class BookingController extends Controller
     public function index()
     {
         $bookings = Booking::with('resort')->latest()->paginate();
-        return view('booking.view_booking', compact('bookings'));
+        return view('bookings.index', compact('bookings'));
     }
 
 
     public function create(Resort $resort)
     {
-        return view('booking.create_booking', compact('resort'));
+        return view('bookings.create', compact('resort'));
     }
 
 
@@ -83,8 +83,11 @@ class BookingController extends Controller
     }
 
 
-    public function destroy(Resort $resort, Booking $booking)
-    {
-        //
-    }
+    // public function destroy(Resort $resort, Booking $booking)
+    // {
+    //     $booking = Booking::find($booking->id);
+    //     $booking->destroy();
+
+    //     return back();
+    // }
 }

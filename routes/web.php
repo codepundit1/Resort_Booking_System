@@ -17,14 +17,12 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 //user
 Route::group(['middleware' => 'auth'], function() {
-    Route::get('view-user', [UserController::class, 'index'])->name('user.view');
-    Route::get('add-user', [UserController::class, 'create'])->name('user.create');
-    Route::post('store-user', [UserController::class, 'store'])->name('user.store');
-    Route::get('delete-user/{id}', [UserController::class, 'delete'])->name('user.delete');
-    Route::get('edit-user/{id}', [UserController::class, 'show'])->name('user.show');
-    // Route::post('edit-user/{id}', [UserController::class, 'update'])->name('user.update');
-    Route::get('restore-user/{id}', [UserController::class, 'restore'])->name('user.restore');
-    Route::get('user-force-delete/{id}', [ResortController::class, 'forceDelete'])->name('user.force-delete');
+
+    Route::resource('users', UserController::class)->except('esit','update', 'show');
+
+    Route::get('users/{id}/restore', [UserController::class, 'restore'])->name('users.restore');
+    Route::get('users/{id}/force-delete', [UserController::class, 'forceDelete'])->name('users.forceDelete');
+
 
 
 });
@@ -34,6 +32,7 @@ Route::group(['middleware' => 'auth'], function() {
 //Resort
 Route::group(['middleware' => 'auth'], function() {
     Route::resource('resorts', ResortController::class)->except('show');
+
     Route::get('resorts/{id}/restore', [ResortController::class, 'restore'])->name('resorts.restore');
     Route::get('resorts/{id}/force-delete', [ResortController::class, 'forceDelete'])->name('resorts.force-delete');
 });
@@ -41,10 +40,8 @@ Route::group(['middleware' => 'auth'], function() {
 
 // booking
 Route::group(['middleware' => 'auth'], function() {
-    Route::get('bookings', [BookingController::class, 'index'])->middleware('auth')->name('booking.index');
-    Route::get('resorts/{resort}/booking', [BookingController::class, 'create'])->name('booking.create');
-    Route::post('resorts/{resort}/booking', [BookingController::class, 'store'])->name('booking.store');
+    Route::get('bookings', [BookingController::class, 'index'])->middleware('auth')->name('bookings.index');
+    Route::get('resorts/{resort}/bookings', [BookingController::class, 'create'])->name('bookings.create');
+    Route::post('resorts/{resort}/bookings', [BookingController::class, 'store'])->name('bookings.store');
+    // Route::post('resorts/{resort}/bookings/destroy', [BookingController::class, 'destroy'])->name('bookings.destroy');
 });
-
-
-
